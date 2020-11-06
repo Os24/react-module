@@ -4,9 +4,9 @@ import Posts from './components/Posts'
 function App() {
   return (
     <>
-      <div className={"card-container"}>
+    
     <Posts></Posts>
-    </div>
+    
     </>
   );
 }

@@ -34,12 +34,14 @@ class Posts extends Component {
             postImg: "",
             postDescription: "",
             postDate: "",
+            enableEdit:false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handlerCreateNewPost = this.handlerCreateNewPost.bind(this)
         this.deletePost = this.deletePost.bind(this)
         this.editPost = this.editPost.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
     }
 
     componentDidMount() {
@@ -74,28 +76,62 @@ class Posts extends Component {
             [name]: value
         })
     }
+    handleEdit(title, date, description, img, id,){
+        console.log(title,"hey ")
+        this.setState({
+            enableEdit:!this.state.enableEdit,
+            postTitle:title,
+            id,
+            postDate:date,
+            postDescription:description,
+            postImg:img,
+        })
+        console.log(title)
+    }
 
     deletePost(id) {
         //id.preventDefault()
         const arrayActualizado = this.state.posts.filter(item => item.id !== id)
         this.setState({ posts: arrayActualizado })
     }
-    editPost(){
-        console.log("yes")
+    editPost(event){
+        let { posts, postDate, postDescription, postImg, postTitle, id } = this.state
+        const updatePost = {
+            id,
+            title: postTitle,
+            date: postDate,
+            description: postDescription,
+            img: postImg,
+        }
+       
+        event.preventDefault()
+        console.log()
+        const updatedPost = posts.map(item=>
+            item.id === this.state.id ? updatePost:item)
+            posts.push(updatedPost)
+            console.log(updatedPost)
+            this.setState({
+                posts,
+                postTitle: "",
+                postImg: "",
+                postDescription: "",
+                postDate: "",
+            })
+
     }
 
     renderPosts() {
-        return this.state.posts.map(({ title, date, description, img, id }) => {
+        return this.state.posts.map(({title, date, description, img, id, }) => {
             return (
                 <div key={id} className={"card"}>
                     <picture>
-                        <img src={img} alt="" />
+                        <img src={img} alt="post-img" />
                     </picture>
                     <h3 >{title}</h3>
                     <span>{date}</span>
                     <p>{description}</p>
                     <div className={"btn-container"}>
-                        <button>Editar</button>
+                        <button onClick={()=>this.handleEdit(title, date, description, img, id,)}>Editar</button>
                         <button onClick={() => this.deletePost(id)}>Borrar</button>
                     </div>
                 </div>
@@ -104,10 +140,11 @@ class Posts extends Component {
     }
 
     renderForm() {
-        const { postTitle, postImg, postDescription, postDate } = this.state;
+        const { postTitle, postImg, postDescription, postDate,enableEdit } = this.state;
         return (
             <>
-                <form onSubmit={this.handleSubmit}>
+                
+                <form onSubmit={enableEdit ?this.editPost:this.handleSubmit}>
                     Post Title:{" "}
                     <input
                         value={postTitle}
@@ -137,19 +174,20 @@ class Posts extends Component {
                     />
 
                     <br></br>
-                    <button type="submit">Crear Post</button>
+                    <button type="submit">{enableEdit ? "Editar post":"Crear Post"}</button>
                 </form>
             </>
         )
     }
 
     render() {
-        const { posts } = this.state
+        const { posts,enableEdit } = this.state
         return (
             <>
                 <div className={"card-container"}>
-                    {posts.length != 0 ? (this.renderPosts()) : (<h1>No hay posts nene</h1>)}
+                    {posts.length !== 0 ? (this.renderPosts()) : (<h1>No hay posts nene</h1>)}
                 </div>
+                <h2>{ enableEdit ? "Editar post":"Crear Post"}</h2>
                 <div className={"form-container"}>
                     {this.renderForm()}
                 </div>

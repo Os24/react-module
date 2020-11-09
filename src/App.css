@@ -1,3 +1,17 @@
+body{
+  background-color:#D3DCE4;
+  font-family: Roboto;
+}
+
+button{
+  background: none;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    width: 95px;
+    cursor: pointer;
+}
+
 .card-container{
   display: flex;
   justify-content: center;
@@ -11,10 +25,64 @@
   margin: 10px;
   padding: 10px;
   text-align: center;
+  background-color: white;
+  box-shadow: 10px 1px 6px rgba(150, 150, 150, 1);
 }
-
 .card>picture>img{
   width: 100%;
+  border-radius: 20px;
+}
+.card>h3{
+  font-size: 30px;
+
+}
+.card>p{
+  margin: 10px;
+  text-align: left;
+  font-size: 14px;
+
+}
+
+.warning{
+  background:#FCC108;
+  color: white;
+
+}
+.danger{
+  background-color: #DC3545;
+  color: white;
+}
+
+.danger:hover{
+  background: white;
+  color: black;
+  border: 1px solid;
+}
+
+.warning:hover{
+  background: white;
+  color: black;
+  border: 1px solid;
+}
+
+.primary{
+  background:#343A40;
+  color: white;
+}
+
+.card>.date-container{
+  display: flex;
+    flex-flow: column;
+    text-align: right;
+    margin: 10px;
+}
+.card>.date-container>:first-child{
+  font-size: 10px;
+  color: gray;
+  margin: 2px;
+}
+.card>.date-container>span{
+  font-size: 12px;
 }
 
 .card>.btn-container{
@@ -26,8 +94,11 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  
 }
-
+.form-container>form{
+transition: all 1s;
+}
 form>input{
   margin: 10px;
 }
@@ -37,3 +108,33 @@ h2{
   justify-content: center;
   align-items: center;
 }
+
+.create-post-container{
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.create-post-container>.title-container{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.create-post-container>.title-container>picture>img{
+  width: 20px;
+
+}
+.active{
+  opacity: 1;
+}
+.inactive{
+  opacity: 0;
+}
+.rotateArrow {
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+
